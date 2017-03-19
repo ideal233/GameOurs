@@ -1,0 +1,12 @@
+﻿<Properties StartupItem="GameOurs.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\NGUI\ReadMe - 3.9.2.txt">
+    <Files>
+      <File FileName="Assets\NGUI\ReadMe - 3.9.2.txt" Line="31" Column="32" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
