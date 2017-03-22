@@ -6,7 +6,11 @@ public enum AnimStatus
 {
     Idle,
     Walk,
-    Attack
+    Attack,
+    Die,
+    BeAttacked,
+    Jump,
+    JumpAttack
 }
 
 public class PlayerRender : MonoBehaviour
@@ -16,7 +20,7 @@ public class PlayerRender : MonoBehaviour
     private float animTimeInterval = 0;
     public AnimStatus status = AnimStatus.Idle;
 
-    public SpriteRenderer walkingRender;  //行走的渲染器
+    public SpriteRenderer render;  //渲染器
 
     public Sprite[] walkingSpriteArray;
 
@@ -26,12 +30,18 @@ public class PlayerRender : MonoBehaviour
     private int walkingArrayLength = 0;
     private float walkingTimer = 0;
 
-    public Sprite idleSprite;
+    public Sprite[] idleSpriteArray;
+
+    private int idleIndex = 0;
+    private int idleArrayLength = 0;
+    private float idleTimer = 0;
+
 
     // Use this for initialization
     void Start()
     {
         walkingArrayLength = walkingSpriteArray.Length;
+        idleArrayLength = idleSpriteArray.Length;
         animTimeInterval = 1 / animSpeed;//得到每一帧的时间间隔
 
     }
@@ -49,13 +59,21 @@ public class PlayerRender : MonoBehaviour
                     walkingTimer -= animTimeInterval;
                     walkingIndex++;
                     walkingIndex %= walkingArrayLength;
-                    walkingRender.sprite = walkingSpriteArray[walkingIndex];
+                    render.sprite = walkingSpriteArray[walkingIndex];
 
                 }
                 break;
 
             case AnimStatus.Idle:
-                walkingRender.sprite = idleSprite;
+                idleTimer += Time.deltaTime;
+                if (idleTimer > animTimeInterval)
+                {
+                    idleTimer -= animTimeInterval;
+                    idleIndex++;
+                    idleIndex %= idleArrayLength;
+                    render.sprite = idleSpriteArray[idleIndex];
+
+                }
                 break;
 
         }

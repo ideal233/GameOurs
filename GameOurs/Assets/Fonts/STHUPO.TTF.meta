@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: a631747441ac7c14eaa1f1a77bfeb22e
+timeCreated: 1490099618
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: STHupo
+  fontNames:
+  - STHupo
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

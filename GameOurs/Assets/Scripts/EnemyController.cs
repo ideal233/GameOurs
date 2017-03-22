@@ -1,56 +1,4 @@
-﻿/*using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EnemyController : MonoBehaviour {
-
-    // Use this for initialization
-    public GameObject player;
-    public float attackDistance = 2f;
-    public float attackRadius = 1f;
-    public float attackPower = 10;
-    public float attakInterval = 3f;
-
-
-    private float attackCounter = 0;
-    private bool isAttack;
-    private PlayerController playerController;
-    public EnemyAttack enemyAttack;
-    public EnemyMove enemyMove;
-
-    public EnemyWalking enemyWalking;
-
-    void Start () {
-        player = GameObject.FindGameObjectWithTag("Player");
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
-        attackCounter += Time.deltaTime;
-        if (attackCounter > attakInterval && isPlayerInField())
-        {
-            attackCounter = 0;
-            Debug.Log("Begin Attak");
-            enemyWalking.status = AnimStatus.Attack;
-            enemyWalking.setAttackIndex(0);
-            enemyAttack.enabled = true;
-            enemyMove.enabled = false;
-            
-        }
-    }
-
-    private bool isPlayerInField()
-    {
-        Vector3 attackCenter = transform.position + Vector3.right * transform.localScale.x * attackDistance;
-        return (Vector3.Distance(player.transform.position, attackCenter) <= attackRadius);
-    }
-}*/
-
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,8 +8,6 @@ public class EnemyController : MonoBehaviour
     // Use this for initialization
     public GameObject player;
     public GameObject enemy;
-    public float attackDistance = 2f;
-    public float attackRadius = 1f;
     public float attackPower = 10;
     public float attakInterval = 3f;
     public float Health = 100f;
@@ -100,8 +46,19 @@ public class EnemyController : MonoBehaviour
 
     private bool isPlayerInField()
     {
-        Vector3 attackCenter = enemy.transform.position + Vector3.right * enemy.transform.localScale.x * attackDistance;
-        return (Vector3.Distance(player.transform.position, attackCenter) <= attackRadius);
+        Vector3 enemyPosition = enemy.transform.position;
+        Vector3 playerPosition = player.transform.position;
+        float zDif = enemyPosition.z - playerPosition.z;
+        float xDif = (enemyPosition + enemy.transform.localScale.x * Vector3.right * 1.2f).x - playerPosition.x;
+        float yDif = enemyPosition.y - playerPosition.y;
+        if (Mathf.Abs(xDif) <= 0.7f && Mathf.Abs(yDif) <= 0.2f && Mathf.Abs(zDif) <= 0.1f)
+        {
+            Debug.Log("Distance is =" + new Vector3(xDif, yDif, zDif));
+            return true;
+        }
+
+        else
+            return false;
     }
 
     public void GetDamaged(float damage)
@@ -112,11 +69,21 @@ public class EnemyController : MonoBehaviour
         {
             Die();
         }
+        else
+        {
+            enemyMove.enabled = false;
+            enemy.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            enemyWalking.status = AnimStatus.BeAttacked;
+        }
+
+
     }
 
     public void Die()
     {
-
+        enemyMove.enabled = false;
+        enemy.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        enemyWalking.status = AnimStatus.Die;
     }
 }
 

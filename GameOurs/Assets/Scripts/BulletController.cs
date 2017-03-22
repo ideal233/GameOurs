@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour {
-
+public class BulletController : MonoBehaviour
+{
+    public GameObject player;
     public GameObject bullet;
     public float attakPower;
     public float bulletFlySpeed;
@@ -11,12 +12,17 @@ public class BulletController : MonoBehaviour {
     public Vector3 direct;
 
     private float lifeCounter;
-    void Start () {
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
         lifeCounter = 0;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        direct = player.transform.localScale.x * Vector3.right;
+        bullet.transform.position = player.transform.position + direct;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         lifeCounter += Time.deltaTime;
         transform.position += Time.deltaTime * direct * bulletFlySpeed;
         if (lifeCounter >= bulletExsitTime)
@@ -24,8 +30,8 @@ public class BulletController : MonoBehaviour {
             Destroy(bullet);
         }
 
-    
-	}
+
+    }
 
 
     void OnTriggerEnter(Collider other)
@@ -37,6 +43,6 @@ public class BulletController : MonoBehaviour {
             EnemyController colliderController = other.GetComponent<EnemyController>();
             colliderController.GetDamaged(attakPower);
             Destroy(bullet);
-}
+        }
     }
 }

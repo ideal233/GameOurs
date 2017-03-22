@@ -13,26 +13,33 @@ public class EnemyWalking : MonoBehaviour {
     private float animTimeInterval = 0;
     public AnimStatus status = AnimStatus.Idle;
 
-    public SpriteRenderer render;  //空闲时的渲染器
+    public SpriteRenderer render;  //渲染器
 
     public Sprite[] idleSpriteArray;
     private int idleIndex = 0;
     private int idleArrayLength = 0;
     private float idleTimer = 0;
 
-    //public SpriteRenderer walkRender;  //行走的渲染器
-
     public Sprite[] walkSpriteArray;
     private int walkIndex = 0;
     private int walkArrayLength = 0;
     private float walkTimer = 0;
 
-    //public SpriteRenderer attackRender;  //攻击的渲染器
-
     public Sprite[] attackSpriteArray;
     private int attackIndex = 0;
     private int attackArrayLength = 0;
     private float attackTimer = 0;
+
+    public Sprite[] beAttackedSpriteArray;
+    private int beAttackedIndex = 0;
+    private int beAttackedLength = 0;
+    private float beAttackedTimer = 0;
+
+    public Sprite[] dieSpriteArray;
+    private int dieIndex = 0;
+    private int dieLength = 0;
+    private float dieTimer = 0;
+
     public void setAttackIndex(int i)
     {
         attackIndex = i;
@@ -50,14 +57,14 @@ public class EnemyWalking : MonoBehaviour {
         idleArrayLength = idleSpriteArray.Length;
         walkArrayLength = walkSpriteArray.Length;
         attackArrayLength = attackSpriteArray.Length;
+        beAttackedLength = beAttackedSpriteArray.Length;
+        dieLength = dieSpriteArray.Length;
         animTimeInterval = 1 / animSpeed;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        render.sortingOrder = -(int)(enemy.transform.position.z * 100);
-        render.sortingOrder = -(int)(enemy.transform.position.z * 100);
         render.sortingOrder = -(int)(enemy.transform.position.z * 100);
 
         if ((distance(player) <= 8.0f) && (status == AnimStatus.Idle))
@@ -99,6 +106,38 @@ public class EnemyWalking : MonoBehaviour {
                     render.sprite = attackSpriteArray[attackIndex];
                 }
                 break;
+            case AnimStatus.BeAttacked:
+                beAttackedTimer += Time.deltaTime;
+                if (beAttackedTimer > animTimeInterval)
+                {
+                    beAttackedTimer -= animTimeInterval;
+                    beAttackedIndex++;
+                    beAttackedIndex %= beAttackedLength;
+                    render.sprite = beAttackedSpriteArray[beAttackedIndex];
+                }
+                break;
+            case AnimStatus.Die:
+                dieTimer += Time.deltaTime;
+                if (dieTimer > animTimeInterval)
+                {
+                    dieTimer -= animTimeInterval;
+                    dieIndex++;
+                    dieIndex %= dieLength;
+                    render.sprite = dieSpriteArray[dieIndex];
+                }
+                break;
+        }
+        if((beAttackedIndex == beAttackedLength - 1)&&(status == AnimStatus.BeAttacked))
+        {
+            status = AnimStatus.Walk;
+            beAttackedIndex = 0;
+            enemyMove.enabled = true;
+        }
+        if ((dieIndex == dieLength - 1) && (status == AnimStatus.Die))
+        {
+            
+            dieIndex = 0;
+            Destroy(enemy);
         }
     }
 }

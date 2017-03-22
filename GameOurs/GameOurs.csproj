@@ -216,6 +216,8 @@
     <Compile Include="Assets\Scripts\BulletController.cs" />
     <Compile Include="Assets\Scripts\ButtonNotifier.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\DamageColliderContoller.cs" />
+    <Compile Include="Assets\Scripts\DamageDigitController.cs" />
     <Compile Include="Assets\Scripts\DataSave.cs" />
     <Compile Include="Assets\Scripts\EnemyAfterAttack.cs" />
     <Compile Include="Assets\Scripts\EnemyAttack.cs" />
@@ -224,9 +226,12 @@
     <Compile Include="Assets\Scripts\EnemyMove5.cs" />
     <Compile Include="Assets\Scripts\EnemyWalking.cs" />
     <Compile Include="Assets\Scripts\GameMenuController.cs" />
+    <Compile Include="Assets\Scripts\HPController.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
+    <Compile Include="Assets\Scripts\SwordWindController.cs" />
     <Compile Include="Assets\Scripts\Tool.cs" />
+    <Compile Include="Assets\Scripts\WeaponController.cs" />
     <Compile Include="Assets\Scripts\WeaponGenerator.cs" />
     <Compile Include="Assets\USP.cs" />
   </ItemGroup>
