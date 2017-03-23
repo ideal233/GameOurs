@@ -20,6 +20,9 @@ public class Weapon
     public int attackDistance;
     public int attackRadius;
     public bool isFar;
+    public float startTime;
+    public float attackInterval;
+
     public Weapon(WeaponName wn,int ap, int ad, int ar, bool isFar)
     {
         weaponName = wn;
@@ -28,6 +31,13 @@ public class Weapon
         attackRadius = ar;
         this.isFar = isFar;
     }
+    public Weapon(float startTime, float attackInterval)
+    {
+        this.startTime = startTime;
+        this.attackInterval = attackInterval;
+    }
+
+
     public static Weapon RandomGenerator(string weaponName)
     {
         //还未完成。。。

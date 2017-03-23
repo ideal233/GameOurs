@@ -33,10 +33,10 @@ public class DamageColliderContoller : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("haha");
+
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("yiyi");
+
             PlayerController playerController = other.GetComponent<PlayerController>();
             playerController.GetDamaged(attackPower);
         }

@@ -12,6 +12,9 @@ public class EnemyController : MonoBehaviour
     public float attakInterval = 3f;
     public float Health = 100f;
 
+    public float xRange = 0.7f;
+    public float yRange = 0.2f;
+    public float zRange = 0.1f;
 
     private float attackCounter = 0;
     private bool isAttack;
@@ -51,7 +54,7 @@ public class EnemyController : MonoBehaviour
         float zDif = enemyPosition.z - playerPosition.z;
         float xDif = (enemyPosition + enemy.transform.localScale.x * Vector3.right * 1.2f).x - playerPosition.x;
         float yDif = enemyPosition.y - playerPosition.y;
-        if (Mathf.Abs(xDif) <= 0.7f && Mathf.Abs(yDif) <= 0.2f && Mathf.Abs(zDif) <= 0.1f)
+        if (Mathf.Abs(xDif) <= xRange && Mathf.Abs(yDif) <= yRange && Mathf.Abs(zDif) <= zRange)
         {
             Debug.Log("Distance is =" + new Vector3(xDif, yDif, zDif));
             return true;
